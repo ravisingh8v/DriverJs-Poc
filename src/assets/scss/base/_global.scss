@@ -7,6 +7,9 @@ body {
   height: 100%;
   width: 100%;
 }
+body {
+  overflow: auto;
+}
 
 #app {
   height: inherit;
@@ -80,15 +83,6 @@ body {
     background: rgb(116 70 215);
     // scale: 0.95;
     // background: linear-gradient(90deg, #341ba5f3, #341ba5f3 100%);
-  }
-}
-
-@media (max-width: 768px) {
-  body {
-    overflow: hidden;
-  }
-  .app_wrapper {
-    overflow: auto;
   }
 }
 

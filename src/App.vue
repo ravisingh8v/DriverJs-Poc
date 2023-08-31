@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center">
       <header-component></header-component>
     </div>
-    <main class="">
+    <main id="main-container">
       <main-container></main-container>
     </main>
   </section>

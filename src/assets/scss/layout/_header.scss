@@ -1,0 +1,40 @@
+header {
+  z-index: 100;
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+figure {
+  margin: unset !important;
+  .navbar-brand {
+    height: 35px;
+    width: 110px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+}
+nav li {
+  margin-inline: 10px;
+}
+.active {
+  color: rgba(175, 173, 173, 0.918);
+}
+.dropdown-menu {
+  width: 150%;
+  #color {
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+  }
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+  li {
+    padding-block: 10px;
+  }
+}

@@ -1,5 +1,7 @@
 <template>
-  <header class="container d-flex justify-content-between p-0 py-4">
+  <header
+    class="container-fluid container-lg d-flex justify-content-between px-2 p-lg-0 py-4"
+  >
     <div class="d-flex">
       <figure class="d-inline">
         <div
@@ -34,7 +36,7 @@
               class="position-absolute dropdown-menu mt-2 top-100 bg-light rounded overflow-hidden"
             >
               <!-- dropdown menu  -->
-              <ul class="text-dark fw-semibold w-100 d-block">
+              <ul class="text-dark fw-semibold w-100 d-block user-select-none">
                 <li
                   id="background-config"
                   class="d-flex w-100 m-0 px-2 justify-content-between border-bottom border-2 border-white"
@@ -134,34 +136,25 @@
   </header>
 </template>
 <script lang="ts" setup>
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useChangeConfiguration, useConfigurationTour } from "@/hooks/driver";
 import ConfigurationService from "@/service/http.service";
 // Drop Down Arrow icon
 const arrowIcon = ref(false);
 console.log("instance");
 function toggleDropdown() {
-  const elemRef = document.getElementById("dropdown-toggle");
   arrowIcon.value = !arrowIcon.value;
   if (arrowIcon.value) {
-    // setTimeout(() => {
     useConfigurationTour();
-    // }, 500);
   }
 }
-// close  dropdown on documents click
-// const popoverRef = ref();
-document.addEventListener("click", () => {
-  // popoverRef.value = document.getElementById("driver-popover-content");
-  // popoverRef.value?.addEventListener("click", (event: any) => {
-  //   event?.stopPropagation();
-  //   console.log("popover");
-  // });
-  arrowIcon.value = false;
+onMounted(() => {
+  const elemRef = document.getElementById("main-container");
+  if (elemRef)
+    elemRef.addEventListener("click", () => {
+      arrowIcon.value = false;
+    });
 });
-
-// onMounted(() => {
-// });
 
 // Handling Input Events
 
@@ -227,45 +220,4 @@ getConfig();
 </script>
 
 <!-- style  -->
-<style lang="scss">
-header {
-  z-index: 100;
-  position: absolute;
-  width: 100%;
-  top: 0;
-}
-figure {
-  margin: unset !important;
-  .navbar-brand {
-    height: 35px;
-    width: 110px;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
-  }
-}
-nav li {
-  margin-inline: 10px;
-}
-.active {
-  color: rgba(175, 173, 173, 0.918);
-}
-.dropdown-menu {
-  width: 150%;
-  #color {
-    width: 20px;
-    height: 20px;
-    padding: 2px;
-  }
-  input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-  }
-  li {
-    padding-block: 10px;
-  }
-}
-</style>
+<style lang="scss"></style>
