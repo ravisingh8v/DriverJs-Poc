@@ -1,0 +1,12 @@
+{
+  "tourConfiguration": [
+    {
+      "overlayColor": "#6933ff",
+      "allowClose": true,
+      "animate": true,
+      "showProgress": true,
+      "id": 1,
+      "interaction": true
+    }
+  ]
+}

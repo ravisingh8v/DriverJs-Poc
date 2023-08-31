@@ -1,0 +1,25 @@
+.about_hero_wrapper {
+  background-image: url("@/assets/images/heroSection/about-hero.jpg");
+  @extend %bg-image-properties;
+  height: 300px;
+  background-attachment: fixed;
+  z-index: 2;
+  .overlay {
+    width: inherit;
+    height: inherit;
+    z-index: 1;
+  }
+  @media (max-width: 576px) {
+    .hero_data {
+      width: 80%;
+    }
+    background-attachment: unset;
+    h2 {
+      font-size: 40px;
+    }
+    p {
+      font-size: 15px !important;
+      font-weight: 400 !important;
+    }
+  }
+}
