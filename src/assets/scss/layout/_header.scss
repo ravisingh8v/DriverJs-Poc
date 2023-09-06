@@ -24,7 +24,7 @@ nav li {
   color: rgba(175, 173, 173, 0.918);
 }
 .dropdown-menu {
-  width: 150%;
+  // width: 150%;
   #color {
     width: 20px;
     height: 20px;
@@ -36,5 +36,11 @@ nav li {
   }
   li {
     padding-block: 10px;
+  }
+}
+.hamburger {
+  display: none;
+  @include media-breakpoint-down(lg) {
+    display: unset;
   }
 }

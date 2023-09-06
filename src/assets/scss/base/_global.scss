@@ -28,17 +28,28 @@ body {
 .invalid-text {
   font-size: 12px;
 }
+.w-150 {
+  width: 150%;
+}
+
+// position
+.start-30 {
+  left: 30px;
+}
 
 .hero-para {
   font-family: $font-family-cursive;
 }
 
 .link {
-  color: white;
+  // color: white;
   cursor: pointer;
   &:hover {
     color: rgba(175, 173, 173, 0.918);
   }
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 .section-headings {
   position: relative;

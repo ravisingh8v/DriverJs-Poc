@@ -1,0 +1,27 @@
+.sidebar {
+  z-index: 200;
+  width: 300px;
+}
+.sidebar-wrapper {
+  z-index: 200;
+  display: none;
+  @include media-breakpoint-down(lg) {
+    display: unset;
+  }
+}
+// .overlay{
+
+// }
+
+.sidebar-enter-from,
+.sidebar-leave-to {
+  opacity: 0;
+}
+.sidebar-enter-to,
+.sidebar-leave-from {
+  opacity: 1;
+}
+.sidebar-enter-active,
+.sidebar-leave-active {
+  transition: all 0.35s ease-in-out;
+}

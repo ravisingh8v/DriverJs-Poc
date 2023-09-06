@@ -1,0 +1,8 @@
+footer {
+  .row .footer-items {
+    border-right: 1px solid $secondary;
+    @include media-breakpoint-down(lg) {
+      border-right: none;
+    }
+  }
+}

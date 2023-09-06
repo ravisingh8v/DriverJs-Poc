@@ -37,17 +37,21 @@
             class="col-12 col-xl-2 col-lg-3 col-md-4 col-sm-6 d-flex justify-content-start"
           >
             <button
-              id="async"
+              id=""
               class="btn-gradient text-nowrap btn-hover btn-active my-2"
-              @click="handleAsyncTour"
+              @click="handleNoElementHighlight"
             >
-              Async Tour
+              No Element
             </button>
           </div>
           <div
             class="col-12 col-xl-2 col-lg-3 col-md-4 col-sm-6 d-flex justify-content-start"
           >
-            <button class="btn-gradient text-nowrap btn-hover btn-active my-2">
+            <button
+              id="preventExit"
+              class="btn-gradient text-nowrap btn-hover btn-active my-2"
+              @click="handlePreventExitHighlight('preventExit')"
+            >
               Prevent Exit
             </button>
           </div>
@@ -90,7 +94,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useHighlightElement, useAsyncTour } from "@/hooks/driver";
+import {
+  useHighlightElement,
+  useNoElementHighlight,
+  usePreventExitHighlight,
+} from "@/hooks/driver";
 
 function handleHighlightTour() {
   useHighlightElement(
@@ -107,7 +115,13 @@ function handleContextHighlight() {
     "This button show you the highlight and the content of this button"
   );
 }
-function handleAsyncTour() {
-  useAsyncTour("async");
+function handleNoElementHighlight() {
+  useNoElementHighlight();
 }
+function handlePreventExitHighlight(id: string) {
+  usePreventExitHighlight(id);
+}
+// function handleAsyncTour() {
+//   useAsyncTour("async");
+// }
 </script>

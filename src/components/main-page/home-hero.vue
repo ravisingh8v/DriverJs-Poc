@@ -37,9 +37,15 @@
   </section>
 </template>
 <script setup lang="ts">
-import { useHighlightElement, useTour } from "@/hooks/driver";
+import { useHighlightElement, useTour, useMobileTour } from "@/hooks/driver";
 function startTour() {
-  useTour();
+  const width = document.documentElement.clientWidth;
+  console.log(width);
+  if (width >= 992) {
+    useTour();
+  } else {
+    useMobileTour();
+  }
 }
 </script>
 <style lang="scss"></style>

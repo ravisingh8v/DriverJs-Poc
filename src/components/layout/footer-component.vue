@@ -1,14 +1,16 @@
 <template>
   <Section class="bg-dark mt-5">
     <footer
-      class="container py-5 border-bottom border-secondary border-opacity-25"
+      class="container px-3 px-sm-0 py-5 border-bottom border-secondary border-opacity-25"
     >
       <div class="row">
-        <div class="col-4 d-flex flex-column border-end border-secondary">
+        <div
+          class="col-12 col-sm-6 footer-items mb-3 mb-lg-0 col-lg-4 d-flex flex-column"
+        >
           <div>
             <h4>Contact</h4>
           </div>
-          <div class="mt-5 row">
+          <div class="mt-2 mt-lg-5 row">
             <!-- row-1  -->
             <!-- <div class="d-flex"> -->
             <div class="col-xxl-6 col-12">
@@ -34,30 +36,41 @@
           </div>
         </div>
         <div
-          class="col-4 border-end border-secondary d-flex flex-column align-items-center"
+          class="col-12 col-sm-6 footer-items mt-5 mt-lg-0 mb-3 mb-lg-0 col-lg-4 d-flex flex-column align-items-start align-items-lg-center"
         >
           <h4>About</h4>
-          <div class="mt-5 px-2 text-center">
+          <div class="mt-lg-5 mt-2 px-sm-2 px-0 text-lg-center">
             I am Ravi, I created this website to just perform driver.js tour
             setups and for practices.
           </div>
         </div>
-        <div class="col-4 d-flex flex-column align-items-end">
+        <div
+          class="col-12 mt-5 mt-lg-0 mb-3 mb-lg-0 col-lg-4 d-flex flex-column align-items-lg-end"
+        >
           <h4>Have a Questions?</h4>
-          <div class="mt-5 d-flex flex-column w-100">
+          <div class="mt-3 mt-lg-5 d-flex flex-column w-100">
             <span class=""
               >Please share your email so we can get in touch with you.</span
             >
-            <div class="d-flex mt-2">
-              <input
-                type="text"
-                id="email"
-                placeholder="Enter your email"
-                class="form-control"
-                @focus="handleFocus"
-              />
-              <button class="btn-gradient ms-3 btn-active">Send</button>
-            </div>
+            <form action="">
+              <div class="d-flex mt-2">
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="Enter your email"
+                  class="form-control"
+                  @focus="handleFocus($event)"
+                  tabindex="1"
+                />
+                <button
+                  tabindex="2"
+                  class="btn-gradient ms-3 btn-active"
+                  type="submit"
+                >
+                  Send
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -68,8 +81,7 @@
 <script setup lang="ts">
 import { useFocusHighlight } from "@/hooks/driver";
 
-function handleFocus() {
-  const a = useFocusHighlight();
-  console.log(a);
+function handleFocus(event: any) {
+  useFocusHighlight();
 }
 </script>
