@@ -1,5 +1,5 @@
 import store from "@/store";
-import { Driver, driver } from "driver.js";
+import { driver } from "driver.js";
 
 // initial config for the tour
 const configuration = {
@@ -20,7 +20,6 @@ export const useChangeConfiguration = (config?: any): void => {
 }
 
 
-// let activeTour = '';
 
 /**
  * Used to just highlight the targeted element
@@ -41,41 +40,10 @@ export const useHighlightElement = (element?: string, title?: string, descriptio
             description: description,
             align: 'center',
             side: 'top'
-
         },
     })
 }
 
-/**
- * @param element 
- * @param title 
- * @param description 
- */
-// export const useAsyncTour = (element?: string, title?: string, description?: string): void => {
-//     // initializing driver 
-//     const asyncTour = driver()
-//     // setting config 
-//     asyncTour.setConfig({
-//         ...configuration, stagePadding: 5,
-//         onPopoverRender: () => {
-//             const elem = document.createElement('div')
-//             elem.innerHTML = '<p>hello</p>'
-//             elem.classList.add('asyncComponent')
-//             elem.setAttribute("id", "async")
-//             const body = document.querySelector('body')
-//             body?.appendChild(elem)
-//         }
-//     })
-//     // highlight 
-//     asyncTour.highlight({
-
-//         element: '#async',
-//         popover: {
-//             title: title,
-//             description: description,
-//         },
-//     })
-// }
 
 /**
  * 
@@ -93,7 +61,7 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
         ...configuration, stagePadding: 1
     })
     // helping function 
-    function onNextClick(activeIndex: any) {
+    function nextClicked(activeIndex: any) {
         configurationTour.drive(activeIndex + 1);
         document.cookie = `configurationActiveStep=${activeIndex + 1}`
     }
@@ -105,7 +73,8 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
                 title: 'Overlay Color',
                 description: 'Here you can change the background color of overlay',
                 onNextClick: (element, step, opts) => {
-                    onNextClick(opts.state.activeIndex)
+                    // calling helper function 
+                    nextClicked(opts.state.activeIndex)
                 }
             },
 
@@ -116,7 +85,8 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
                 title: 'Exit Prevention',
                 description: 'By Selecting this you are allowed to exit from the tour',
                 onNextClick: (element, step, opts) => {
-                    onNextClick(opts.state.activeIndex)
+                    // calling helper function 
+                    nextClicked(opts.state.activeIndex)
                 }
             },
         },
@@ -126,7 +96,8 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
                 title: 'Interaction',
                 description: 'By Selecting this you can interact with the highlighted element',
                 onNextClick: (element, step, opts) => {
-                    onNextClick(opts.state.activeIndex)
+                    // calling helper function 
+                    nextClicked(opts.state.activeIndex)
                 }
             },
         },
@@ -136,7 +107,8 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
                 title: 'Animation',
                 description: 'By Checking this you can animate the tour on each step.',
                 onNextClick: (element, step, opts) => {
-                    onNextClick(opts.state.activeIndex)
+                    // calling helper function 
+                    nextClicked(opts.state.activeIndex)
                 }
             },
         },
@@ -146,7 +118,8 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
                 title: 'Step Progress',
                 description: 'By checking this you can see the progress steps in the popover.',
                 onNextClick: (element, step, opts) => {
-                    onNextClick(opts.state.activeIndex)
+                    // calling helper function 
+                    nextClicked(opts.state.activeIndex)
                     localStorage.setItem('configuration', 'true')
                 }
             },
@@ -155,13 +128,12 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
 
     // getting cookie 
     const getCookie = +(document.cookie.split('=').pop() || '0')
-    console.log(getCookie)
     const isTourCompleted = localStorage.getItem('configuration')
 
     // if (activeTour == "configurationTour") {
     setTimeout(() => {
         if (status) {
-            console.log(isTourCompleted)
+            // console.log(isTourCompleted)
             !isTourCompleted && configurationTour.drive(getCookie)
         } else {
             configurationTour.destroy()
@@ -191,23 +163,6 @@ export const useFocusHighlight = () => {
     })
 }
 
-// const isElementVisible = (elem: any) => {
-//     const rect = elem.getBoundingClientRect();
-//     return (
-//         rect.top >= 0 &&
-//         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-//     );
-// };
-// // Scroll the page to bring the element into view
-// const scrollIfNeeded = (elem: any) => {
-//     if (!isElementVisible(elem)) {
-//         console.log(elem.scrollIntoView())
-//         const rect = elem.getBoundingClientRect()
-//         window.scrollX = rect.top
-//         elem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-//     }
-// };
-
 
 /**
  * 
@@ -215,7 +170,7 @@ export const useFocusHighlight = () => {
 export const useTour = () => {
     // first destroying the instance 
     driver().destroy()
-    console.log(configuration)
+    // console.log(configuration)
     // Initializing driver 
     const tourGuide = driver();
 
@@ -247,6 +202,13 @@ export const useTour = () => {
             }
         },
         {
+            element: '#nav-contact',
+            popover: {
+                title: 'Contact-us',
+                description: 'Here you can send your feedback or query.',
+            }
+        },
+        {
             element: '#socials-wrapper',
             popover: {
                 title: 'Social Handles',
@@ -262,10 +224,46 @@ export const useTour = () => {
                 side: "top"
             }
         },
-
     ])
     tourGuide.drive()
 }
+
+
+/**
+ * 
+ */
+export const useNoElementHighlight = () => {
+    driver().destroy();
+
+    const noElementHighlight = driver()
+    noElementHighlight.highlight({
+        popover: {
+            title: "No Element",
+            description: 'This is the example of no element highlight we can use it as a pop-up'
+        }
+    })
+}
+
+
+/**
+ * 
+ * @param elem 
+ */
+export const usePreventExitHighlight = (elem: string) => {
+    driver().destroy();
+
+    const preventExitHighlight = driver()
+    preventExitHighlight.setConfig({ ...configuration, allowClose: false })
+    preventExitHighlight.setSteps([{
+        element: '#' + elem,
+        popover: {
+            title: "Prevent Exit",
+            description: 'Here you cant exit without completing all the steps or if one steps is only there then exit by only with done button'
+        }
+    }])
+    preventExitHighlight.drive();
+}
+
 
 /**
  * 
@@ -273,7 +271,7 @@ export const useTour = () => {
 export const useMobileTour = () => {
     // first destroying the instance 
     driver().destroy()
-    console.log(configuration)
+    // console.log(configuration)
     // Initializing driver 
     const tourGuide = driver();
 
@@ -287,12 +285,11 @@ export const useMobileTour = () => {
             popover: {
                 title: 'Sidebar',
                 description: 'This icon open the sidebar',
-                onNextClick(elem, step, opts) {
-                    tourGuide.refresh()
+                onNextClick() {
                     store.dispatch('setIsSidebarOpen', true);
                     setTimeout(() => {
                         tourGuide.moveNext()
-                    }, 500)
+                    }, 100)
                 }
             },
         },
@@ -302,6 +299,13 @@ export const useMobileTour = () => {
             popover: {
                 title: 'Home',
                 description: 'This will navigate you to the home page',
+                onPrevClick() {
+                    store.dispatch('setIsSidebarOpen', false);
+                    setTimeout(() => {
+                        tourGuide.movePrevious()
+                    }, 100)
+
+                }
             },
         },
         {
@@ -315,7 +319,22 @@ export const useMobileTour = () => {
             element: '#sidebar-dropdown',
             popover: {
                 title: 'Tour Configuration',
-                description: 'You can customize the tour by configuring here'
+                description: 'You can customize the tour by configuring here',
+            }
+        },
+        {
+            element: '#sidebar-contact',
+            popover: {
+                title: 'Contact-us',
+                description: 'Here you can send your feedback or query.',
+                onNextClick() {
+                    setTimeout(() => {
+                        store.dispatch('setIsSidebarOpen', false);
+                    }, 150)
+                    setTimeout(() => {
+                        tourGuide.moveNext()
+                    }, 100)
+                },
             }
         },
         {
@@ -324,7 +343,14 @@ export const useMobileTour = () => {
                 title: 'Tours',
                 description: 'Here you can try multiple tour/guide options.',
                 align: "center",
-                side: "top"
+                side: "bottom",
+                onPrevClick() {
+                    store.dispatch('setIsSidebarOpen', true);
+                    setTimeout(() => {
+                        tourGuide.movePrevious()
+                    }, 100)
+
+                }
             }
         },
 
@@ -332,33 +358,143 @@ export const useMobileTour = () => {
     tourGuide.drive()
 }
 
+/**
+ * 
+ */
+export const usePersonalDetailsFormTour = () => {
+    driver().destroy()
 
+    const contactTour = driver();
 
-export const useNoElementHighlight = () => {
-    driver().destroy();
-
-    const noElementHighlight = driver()
-    noElementHighlight.highlight({
-        popover: {
-            title: "No Element",
-            description: 'This is the example of no element highlight we can use it as a pop-up'
-        }
+    // setting config 
+    contactTour.setConfig({
+        ...configuration, disableActiveInteraction: true, stagePadding: 2, allowClose: false, animate: false
     })
-}
-export const usePreventExitHighlight = (elem: string) => {
-    driver().destroy();
-
-    const preventExitHighlight = driver()
-    preventExitHighlight.setConfig({ ...configuration, allowClose: false })
-    preventExitHighlight.setSteps([{
-        element: '#' + elem,
+    contactTour.setSteps([{
+        element: '#contact-us',
         popover: {
-            title: "Prevent Exit",
-            description: 'Here you cant exit without completing all the steps or if one steps is only there then exit by only with done button'
+            title: 'contact',
+            description: 'this is contact us form here you can send feedback or any query to us',
         }
-    }])
-    preventExitHighlight.drive()
+    }, {
+        element: '#personal-details',
+        popover: {
+            title: 'Personal Details',
+            description: 'Here you have to fill you personal details in the input boxes',
+        }
+    },
+    {
+        element: '#form-prev',
+        popover: {
+            title: 'Previous Button',
+            description: 'By Clicking this you redirect to the previous section of the form if its there. ',
+        }
+    },
+    {
+        element: '#form-next',
+        popover: {
+            title: 'Next Button',
+            description: 'By Clicking this you redirect to the Next section of the form if its there.',
+            onNextClick() {
+                localStorage.setItem("personalDetailsForm", "true")
+                contactTour.moveNext()
+            }
+        }
+    },
+    ])
+    if (!localStorage.getItem("personalDetailsForm")) {
+        contactTour.drive()
+    }
+    // }
 }
+/**
+ * 
+ */
+export const useQueryDetailsFormTour = () => {
+    driver().destroy()
+
+    const contactTour = driver();
+
+    // setting config 
+    contactTour.setConfig({
+        ...configuration, disableActiveInteraction: true, stagePadding: 2, allowClose: false, animate: false
+    })
+    contactTour.setSteps([{
+        element: '#query-details',
+        popover: {
+            title: 'Query Details',
+            description: 'Here you have to fill you Query/Feedback details in the input boxes',
+        }
+    },
+    {
+        element: '#form-next',
+        popover: {
+            title: 'Submit',
+            description: 'By Clicking this your details are submitted .',
+            onNextClick() {
+                contactTour.moveNext()
+            }
+        }
+    },
+    ])
+
+    contactTour.drive()
+    // }
+}
+
+// /**
+//  * @param element
+//  * @param title
+//  * @param description
+//  */
+// export const useAsyncTour = (element?: string, title?: string, description?: string): void => {
+//     // initializing driver
+//     const asyncTour = driver()
+//     // setting config
+//     asyncTour.setConfig({
+//         ...configuration, stagePadding: 5,
+//         onPopoverRender: () => {
+//             const elem = document.createElement('div')
+//             elem.innerHTML = '<p>hello</p>'
+//             elem.classList.add('asyncComponent')
+//             elem.setAttribute("id", "async")
+//             const body = document.querySelector('body')
+//             body?.appendChild(elem)
+//         }
+//     })
+//     // highlight
+//     asyncTour.highlight({
+
+//         element: '#async',
+//         popover: {
+//             title: title,
+//             description: description,
+//         },
+//     })
+// }
+
+
+
+
+// const isElementVisible = (elem: any) => {
+//     const rect = elem.getBoundingClientRect();
+//     return (
+//         rect.top >= 0 &&
+//         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+//     );
+// };
+// // Scroll the page to bring the element into view
+// const scrollIfNeeded = (elem: any) => {
+//     if (!isElementVisible(elem)) {
+//         console.log(elem.scrollIntoView())
+//         const rect = elem.getBoundingClientRect()
+//         window.scrollX = rect.top
+//         elem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+//     }
+// };
+
+
+
 
 
 // onPopoverRender(popover) {
@@ -376,38 +512,38 @@ export const usePreventExitHighlight = (elem: string) => {
 
 
 
- // {
-        //     element: '#' + element,
-        //     popover: {
-        //         title: title,
-        //         description: description
-        //     }
-        // },
-        // {
-        //     element: '#' + element,
-        //     popover: {
-        //         title: title,
-        //         description: description
-        //     }
-        // },
-        // {
-        //     element: '#' + element,
-        //     popover: {
-        //         title: title,
-        //         description: description
-        //     }
-        // }
+// {
+//     element: '#' + element,
+//     popover: {
+//         title: title,
+//         description: description
+//     }
+// },
+// {
+//     element: '#' + element,
+//     popover: {
+//         title: title,
+//         description: description
+//     }
+// },
+// {
+//     element: '#' + element,
+//     popover: {
+//         title: title,
+//         description: description
+//     }
+// }
 
 
- // onNextClick(element, step, opts) {
-                //     if (opts.state?.activeIndex == 0) {
-                //         if (opts.config.steps) {
-                //             const elementId = opts.config.steps[opts.state.activeIndex + 1].element?.toString().split('#')
-                //             if (elementId) {
-                //                 const element = document.getElementById(elementId[1])
-                //                 // scrollIfNeeded(element)
-                //                 tourGuide.moveTo(opts.state.activeIndex + 1)
-                //             }
-                //         }
-                //     }
-                // }
+// onNextClick(element, step, opts) {
+//     if (opts.state?.activeIndex == 0) {
+//         if (opts.config.steps) {
+//             const elementId = opts.config.steps[opts.state.activeIndex + 1].element?.toString().split('#')
+//             if (elementId) {
+//                 const element = document.getElementById(elementId[1])
+//                 // scrollIfNeeded(element)
+//                 tourGuide.moveTo(opts.state.activeIndex + 1)
+//             }
+//         }
+//     }
+// }

@@ -20,7 +20,7 @@
       <figure class="hero-brand">
         <img src="../../assets/images/logo/white.png" alt="" />
       </figure>
-      <div class="my-3">
+      <div class="my-3 text-center">
         <span class="fs-4">A beautiful Configuration System for DriverJs.</span>
       </div>
       <div class="my-2">
@@ -38,9 +38,10 @@
 </template>
 <script setup lang="ts">
 import { useHighlightElement, useTour, useMobileTour } from "@/hooks/driver";
+import service from "./../../service/http.service";
 function startTour() {
+  // service.getConfig();
   const width = document.documentElement.clientWidth;
-  console.log(width);
   if (width >= 992) {
     useTour();
   } else {

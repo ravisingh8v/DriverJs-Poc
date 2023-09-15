@@ -16,7 +16,7 @@
             class="col-12 col-xl-2 col-lg-3 col-md-4 col-sm-6 d-flex justify-content-start"
           >
             <button
-              class="btn-gradient text-nowrap btn-hover btn-active my-2 border"
+              class="btn-gradient text-center text-nowrap btn-hover btn-active my-2 border"
               @click="handleHighlightTour"
             >
               Highlight Tour
@@ -27,7 +27,7 @@
           >
             <button
               id="contextual"
-              class="btn-gradient text-nowrap btn-hover btn-active my-2"
+              class="btn-gradient text-center text-nowrap btn-hover btn-active my-2"
               @click="handleContextHighlight"
             >
               Contextual Tour
@@ -38,7 +38,7 @@
           >
             <button
               id=""
-              class="btn-gradient text-nowrap btn-hover btn-active my-2"
+              class="btn-gradient text-center text-nowrap btn-hover btn-active my-2"
               @click="handleNoElementHighlight"
             >
               No Element
@@ -49,13 +49,13 @@
           >
             <button
               id="preventExit"
-              class="btn-gradient text-nowrap btn-hover btn-active my-2"
+              class="btn-gradient text-center text-nowrap btn-hover btn-active my-2"
               @click="handlePreventExitHighlight('preventExit')"
             >
               Prevent Exit
             </button>
           </div>
-          <div
+          <!-- <div
             class="col-12 col-xl-2 col-lg-3 col-md-4 col-sm-6 d-flex justify-content-start"
           >
             <button class="btn-gradient text-nowrap btn-hover btn-active my-2">
@@ -68,7 +68,7 @@
             <button class="btn-gradient text-nowrap btn-hover btn-active my-2">
               Highlight Tour
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

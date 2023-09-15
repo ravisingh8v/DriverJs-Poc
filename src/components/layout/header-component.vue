@@ -17,6 +17,9 @@
           </li>
           <li class="px-3 link" id="tour-link"><a href="#tours">Tours</a></li>
           <ConfigurationDropdown :isSidebar="false"></ConfigurationDropdown>
+          <li class="px-3 link" id="nav-contact">
+            <a href="#contact">Contact</a>
+          </li>
         </ul>
       </nav>
     </div>

@@ -16,8 +16,13 @@
         <nav class="mt-3">
           <ul class="m-0 d-flex flex-column">
             <li class="p-3 border-bottom active" id="sidebar-home">Home</li>
-            <li class="p-3 border-bottom" id="sidebar-tour">Tour</li>
+            <li class="p-3 border-bottom link" id="sidebar-tour">
+              <a href="#tours">Tour</a>
+            </li>
             <ConfigurationDropdown :isSidebar="true"></ConfigurationDropdown>
+            <li class="p-3 link border-bottom" id="sidebar-contact">
+              <a href="#contact">Contact</a>
+            </li>
           </ul>
         </nav>
       </div>

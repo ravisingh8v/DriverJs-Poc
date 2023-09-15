@@ -10,7 +10,7 @@
     @click.stop="toggleDropdown()"
   >
     <!-- id="dropdown-toggle" -->
-    <a href="#">Configuration</a>
+    <a>Configuration</a>
     <span
       class="ps-2 fa-solid"
       :class="arrowIcon ? 'fa-caret-up' : 'fa-caret-down'"
@@ -20,7 +20,7 @@
       <div
         v-if="arrowIcon"
         @click.stop=""
-        class="position-absolute mt-2 top-100 bg-light rounded overflow-hidden dropdown-menu"
+        class="position-absolute mt-2 top-100 bg-light rounded overflow-hidden dropdown-menu shadow"
         :class="props.isSidebar ? 'start-30 end-0' : 'w-150'"
       >
         <!-- dropdown menu  -->

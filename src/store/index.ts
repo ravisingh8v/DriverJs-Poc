@@ -8,6 +8,7 @@ export default createStore({
     isSidebarOpen(state) {
       return state.isSidebarOpen
     }
+
   },
   mutations: {
     setIsSidebarOpen(state, payload) {
@@ -17,7 +18,7 @@ export default createStore({
   actions: {
     setIsSidebarOpen(context, payload) {
       context.commit('setIsSidebarOpen', payload)
-      console.log('action', payload)
+      // console.log('action', payload)
     }
   },
   modules: {

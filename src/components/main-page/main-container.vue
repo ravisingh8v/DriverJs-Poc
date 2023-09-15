@@ -5,7 +5,10 @@
     </div>
     <div id="tours">
       <tours-feed></tours-feed>
-      <tours-page></tours-page>
+      <!-- <tours-page></tours-page> -->
+    </div>
+    <div class="contact">
+      <contact-us></contact-us>
     </div>
     <div id="footer">
       <footer-component></footer-component>
@@ -15,6 +18,6 @@
 <script lang="ts" setup>
 import homeHero from "./home-hero.vue";
 import ToursFeed from "./tours-feed.vue";
+import contactUs from "./contact-us/contact-us.vue";
 import FooterComponent from "../layout/footer-component.vue";
 </script>
-<style lang="scss"></style>

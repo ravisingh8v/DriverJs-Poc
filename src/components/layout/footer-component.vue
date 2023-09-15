@@ -1,5 +1,5 @@
 <template>
-  <Section class="bg-dark mt-5">
+  <div class="bg-dark mt-5">
     <footer
       class="container px-3 px-sm-0 py-5 border-bottom border-secondary border-opacity-25"
     >
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div
-          class="col-12 col-sm-6 footer-items mt-5 mt-lg-0 mb-3 mb-lg-0 col-lg-4 d-flex flex-column align-items-start align-items-lg-center"
+          class="col-12 col-sm-6 footer-items mt-5 mt-sm-0 mt-lg-0 mb-3 mb-lg-0 col-lg-4 d-flex flex-column align-items-start align-items-lg-center"
         >
           <h4>About</h4>
           <div class="mt-lg-5 mt-2 px-sm-2 px-0 text-lg-center">
@@ -76,7 +76,7 @@
       </div>
     </footer>
     <div class="text-center mt-2">Created By Ravi👻</div>
-  </Section>
+  </div>
 </template>
 <script setup lang="ts">
 import { useFocusHighlight } from "@/hooks/driver";
