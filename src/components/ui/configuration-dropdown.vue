@@ -21,7 +21,7 @@
         v-if="arrowIcon"
         @click.stop=""
         class="position-absolute mt-2 top-100 bg-light rounded overflow-hidden dropdown-menu shadow"
-        :class="props.isSidebar ? 'start-30 end-0' : 'w-150'"
+        :class="isSidebar ? 'start-30 end-0' : 'w-150'"
       >
         <!-- dropdown menu  -->
         <ul class="text-dark fw-semibold w-100 d-block user-select-none">
@@ -150,7 +150,8 @@ async function handleColorChange(event: any) {
   ConfigurationService.setConfig({
     ...tourConfig.value,
     overlayColor: color,
-  }).then(() => {
+  }).then((res) => {
+    console.log('work')
     getConfig();
   });
 }
@@ -219,7 +220,7 @@ getConfig();
   opacity: 1;
 }
 .dropdown-enter-active {
-  transition: all 0.3s linear;
+  transition: all 0.15s linear;
 }
 .dropdown-leave-active {
   transition: all 0.15s linear;

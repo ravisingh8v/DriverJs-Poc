@@ -19,6 +19,21 @@ export const useChangeConfiguration = (config?: any): void => {
     configuration.disableActiveInteraction = !config.interaction
 }
 
+// custom configuration 
+function isScrollVisible(value:string){
+    document.body.style.overflow = value;
+    if(value == "auto"){
+        document.body.style.removeProperty('overflow')
+    }
+}
+const scrollHandle:any={
+    onHighlightStarted:()=>{
+        isScrollVisible('hidden')
+    },
+    onDestroyed:()=>{
+        isScrollVisible('auto')
+    }
+} 
 
 
 /**
@@ -31,7 +46,7 @@ export const useHighlightElement = (element?: string, title?: string, descriptio
     // initializing driver 
     const highlightGuide = driver()
     // setting config 
-    highlightGuide.setConfig({ ...configuration, stagePadding: 5 })
+    highlightGuide.setConfig({ ...configuration, stagePadding: 5, ...scrollHandle })
     // highlight 
     highlightGuide.highlight({
         element: '#' + element,
@@ -133,6 +148,7 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
     // if (activeTour == "configurationTour") {
     setTimeout(() => {
         if (status) {
+            console.log(status)
             // console.log(isTourCompleted)
             !isTourCompleted && configurationTour.drive(getCookie)
         } else {
@@ -143,24 +159,28 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
 }
 
 
-
 // Single focus element 
-export const useFocusHighlight = () => {
+export const useFocusHighlight = (id?:string,description?:string) => {
     const focusHighlight = driver();
     focusHighlight.setConfig({
         ...configuration, disableActiveInteraction: false,
-
+        onHighlightStarted(){
+            isScrollVisible('hidden')
+        },
         onDeselected(element, step, opts) {
-            const elem = document.getElementById('email')
-            elem?.blur()
+            isScrollVisible('auto')
+            if(id){
+                const elem = document.getElementById(id)
+                elem?.blur()
+            } 
         }
     });
-    focusHighlight.highlight({
-        element: '#email',
-        popover: {
-            description: 'Write your email, we will get back to you.'
-        }
-    })
+        focusHighlight.highlight({
+            element: `#${id}`,
+            popover: {
+                description: description
+            }
+        })
 }
 
 
@@ -176,7 +196,24 @@ export const useTour = () => {
 
     // setting config 
     tourGuide.setConfig({
-        ...configuration, disableActiveInteraction: true
+        ...configuration, disableActiveInteraction: true,
+        onHighlightStarted:()=>{
+            isScrollVisible('hidden')
+        }, 
+        // when onHighlighted 
+        // onPopoverRender(){
+        //     isScrollVisible('auto')
+        //     console.log('hello')
+        // },
+        // onNextClick(){
+        //     tourGuide.moveNext()
+        // },
+        // onPrevClick(){
+        //     tourGuide.movePrevious()
+        // },
+        onDestroyed:()=>{
+            isScrollVisible('auto')
+        }
     })
     tourGuide.setSteps([
 
@@ -362,55 +399,83 @@ export const useMobileTour = () => {
  * 
  */
 export const usePersonalDetailsFormTour = () => {
-    driver().destroy()
+    const isTourDone = localStorage.getItem("personalDetailsForm") == "true";
 
-    const contactTour = driver();
-
-    // setting config 
-    contactTour.setConfig({
-        ...configuration, disableActiveInteraction: true, stagePadding: 2, allowClose: false, animate: false
-    })
-    contactTour.setSteps([{
-        element: '#contact-us',
-        popover: {
-            title: 'contact',
-            description: 'this is contact us form here you can send feedback or any query to us',
-        }
-    }, {
-        element: '#personal-details',
-        popover: {
-            title: 'Personal Details',
-            description: 'Here you have to fill you personal details in the input boxes',
-        }
-    },
-    {
-        element: '#form-prev',
-        popover: {
-            title: 'Previous Button',
-            description: 'By Clicking this you redirect to the previous section of the form if its there. ',
-        }
-    },
-    {
-        element: '#form-next',
-        popover: {
-            title: 'Next Button',
-            description: 'By Clicking this you redirect to the Next section of the form if its there.',
-            onNextClick() {
-                localStorage.setItem("personalDetailsForm", "true")
-                contactTour.moveNext()
-            }
-        }
-    },
-    ])
-    if (!localStorage.getItem("personalDetailsForm")) {
-        contactTour.drive()
+    // helping function 
+    function nextClick(step: any) {
+        localStorage.setItem('personalDetailsActiveIndex', `${step + 1}`)
     }
-    // }
+
+    if (!isTourDone) {
+        driver().destroy()
+
+
+
+        const contactTour = driver();
+
+        // setting config 
+        contactTour.setConfig({
+            ...configuration, disableActiveInteraction: true, stagePadding: 2, allowClose: false, animate: false
+        })
+        contactTour.setSteps([{
+            element: '#contact-us',
+            popover: {
+                title: 'contact',
+                description: 'this is contact us form here you can send feedback or any query to us',
+                onNextClick(elem, step, opts) {
+                    // console.log(step)
+                    // if(opts.state.activeIndex){
+                    nextClick(opts.state.activeIndex)
+                    contactTour.moveNext()
+                    // }
+                }
+            }
+        }, {
+            element: '#personal-details',
+            popover: {
+                title: 'Personal Details',
+                description: 'Here you have to fill you personal details in the input boxes',
+                onNextClick(elem, step, opts) {
+                    nextClick(opts.state.activeIndex)
+                    contactTour.moveNext()
+                }
+            }
+        },
+        {
+            element: '#form-prev',
+            popover: {
+                title: 'Previous Button',
+                description: 'By Clicking this you redirect to the previous section of the form if its there. ',
+                onNextClick(elem, step, opts) {
+                    nextClick(opts.state.activeIndex)
+                    contactTour.moveNext()
+                }
+            }
+        },
+        {
+            element: '#form-next',
+            popover: {
+                title: 'Next Button',
+                description: 'By Clicking this you redirect to the Next section of the form if its there.',
+                onNextClick() {
+                    localStorage.setItem("personalDetailsForm", "true")
+                    contactTour.moveNext()
+                }
+            }
+        },
+        ])
+        //  Drive the tour 
+        const getActiveIndex = Number(localStorage.getItem('personalDetailsActiveIndex'))
+        contactTour.drive(getActiveIndex)
+    }
 }
 /**
  * 
  */
 export const useQueryDetailsFormTour = () => {
+
+    const isTourDone = localStorage.getItem("queryDetailsForm") == 'true'
+    if(!isTourDone){
     driver().destroy()
 
     const contactTour = driver();
@@ -424,6 +489,8 @@ export const useQueryDetailsFormTour = () => {
         popover: {
             title: 'Query Details',
             description: 'Here you have to fill you Query/Feedback details in the input boxes',
+            align:"center",
+            side:"top"
         }
     },
     {
@@ -432,6 +499,7 @@ export const useQueryDetailsFormTour = () => {
             title: 'Submit',
             description: 'By Clicking this your details are submitted .',
             onNextClick() {
+                localStorage.setItem('queryDetailsForm', 'true')
                 contactTour.moveNext()
             }
         }
@@ -440,6 +508,7 @@ export const useQueryDetailsFormTour = () => {
 
     contactTour.drive()
     // }
+}
 }
 
 // /**

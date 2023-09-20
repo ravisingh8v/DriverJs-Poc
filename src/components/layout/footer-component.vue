@@ -56,7 +56,7 @@
               <div class="d-flex mt-2">
                 <input
                   type="text"
-                  id="email"
+                  id="footer-email"
                   placeholder="Enter your email"
                   class="form-control"
                   @focus="handleFocus($event)"
@@ -82,6 +82,6 @@
 import { useFocusHighlight } from "@/hooks/driver";
 
 function handleFocus(event: any) {
-  useFocusHighlight();
+  useFocusHighlight('footer-email','Write your email, we will get back to you.');
 }
 </script>

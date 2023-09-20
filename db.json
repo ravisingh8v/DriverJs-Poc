@@ -1,8 +1,8 @@
 {
   "tourConfiguration": [
     {
-      "overlayColor": "#0f0231",
-      "allowClose": false,
+      "overlayColor": "#000000",
+      "allowClose": true,
       "animate": true,
       "showProgress": true,
       "id": 1,

@@ -1,0 +1,25 @@
+// custom animation
+// For Popover 
+#driver-popover-content.driver-popover {
+    animation: custom-animation 0.2s linear;
+}
+.highlighted-element {
+    position: relative;
+    transition: all 1s ease-in-out; /* You can adjust the transition duration and easing function */
+    /* Other styling for the highlight, such as background-color and border */
+  }
+
+// For Overlay 
+// .driver-overlay-animated.driver-overlay{
+//     animation: custom-animation 0.9s ease-in-out;
+// }
+@keyframes custom-animation {
+    0% {
+        opacity: 0;
+        // transform: translateY(-200px);
+    }
+    100% {
+        opacity: 1;
+        // transform: translateY(0);
+    }
+}
