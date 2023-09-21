@@ -20,20 +20,20 @@ export const useChangeConfiguration = (config?: any): void => {
 }
 
 // custom configuration 
-function isScrollVisible(value:string){
+function isScrollVisible(value: string) {
     document.body.style.overflow = value;
-    if(value == "auto"){
+    if (value == "auto") {
         document.body.style.removeProperty('overflow')
     }
 }
-const scrollHandle:any={
-    onHighlightStarted:()=>{
+const scrollHandle: any = {
+    onHighlightStarted: () => {
         isScrollVisible('hidden')
     },
-    onDestroyed:()=>{
+    onDestroyed: () => {
         isScrollVisible('auto')
     }
-} 
+}
 
 
 /**
@@ -160,27 +160,27 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
 
 
 // Single focus element 
-export const useFocusHighlight = (id?:string,description?:string) => {
+export const useFocusHighlight = (id?: string, description?: string) => {
     const focusHighlight = driver();
     focusHighlight.setConfig({
         ...configuration, disableActiveInteraction: false,
-        onHighlightStarted(){
+        onHighlightStarted() {
             isScrollVisible('hidden')
         },
         onDeselected(element, step, opts) {
             isScrollVisible('auto')
-            if(id){
+            if (id) {
                 const elem = document.getElementById(id)
                 elem?.blur()
-            } 
+            }
         }
     });
-        focusHighlight.highlight({
-            element: `#${id}`,
-            popover: {
-                description: description
-            }
-        })
+    focusHighlight.highlight({
+        element: `#${id}`,
+        popover: {
+            description: description
+        }
+    })
 }
 
 
@@ -197,9 +197,9 @@ export const useTour = () => {
     // setting config 
     tourGuide.setConfig({
         ...configuration, disableActiveInteraction: true,
-        onHighlightStarted:()=>{
+        onHighlightStarted: () => {
             isScrollVisible('hidden')
-        }, 
+        },
         // when onHighlighted 
         // onPopoverRender(){
         //     isScrollVisible('auto')
@@ -211,7 +211,7 @@ export const useTour = () => {
         // onPrevClick(){
         //     tourGuide.movePrevious()
         // },
-        onDestroyed:()=>{
+        onDestroyed: () => {
             isScrollVisible('auto')
         }
     })
@@ -314,7 +314,7 @@ export const useMobileTour = () => {
 
     // setting config 
     tourGuide.setConfig({
-        ...configuration, disableActiveInteraction: true, stagePadding: 2
+        ...configuration, disableActiveInteraction: true, stagePadding: 2,
     })
     tourGuide.setSteps([
         {
@@ -475,40 +475,40 @@ export const usePersonalDetailsFormTour = () => {
 export const useQueryDetailsFormTour = () => {
 
     const isTourDone = localStorage.getItem("queryDetailsForm") == 'true'
-    if(!isTourDone){
-    driver().destroy()
+    if (!isTourDone) {
+        driver().destroy()
 
-    const contactTour = driver();
+        const contactTour = driver();
 
-    // setting config 
-    contactTour.setConfig({
-        ...configuration, disableActiveInteraction: true, stagePadding: 2, allowClose: false, animate: false
-    })
-    contactTour.setSteps([{
-        element: '#query-details',
-        popover: {
-            title: 'Query Details',
-            description: 'Here you have to fill you Query/Feedback details in the input boxes',
-            align:"center",
-            side:"top"
-        }
-    },
-    {
-        element: '#form-next',
-        popover: {
-            title: 'Submit',
-            description: 'By Clicking this your details are submitted .',
-            onNextClick() {
-                localStorage.setItem('queryDetailsForm', 'true')
-                contactTour.moveNext()
+        // setting config 
+        contactTour.setConfig({
+            ...configuration, disableActiveInteraction: true, stagePadding: 2, allowClose: false, animate: false
+        })
+        contactTour.setSteps([{
+            element: '#query-details',
+            popover: {
+                title: 'Query Details',
+                description: 'Here you have to fill you Query/Feedback details in the input boxes',
+                align: "center",
+                side: "top"
             }
-        }
-    },
-    ])
+        },
+        {
+            element: '#form-next',
+            popover: {
+                title: 'Submit',
+                description: 'By Clicking this your details are submitted .',
+                onNextClick() {
+                    localStorage.setItem('queryDetailsForm', 'true')
+                    contactTour.moveNext()
+                }
+            }
+        },
+        ])
 
-    contactTour.drive()
-    // }
-}
+        contactTour.drive()
+        // }
+    }
 }
 
 // /**
