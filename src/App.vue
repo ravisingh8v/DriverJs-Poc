@@ -1,5 +1,6 @@
 <template>
-  <master></master>
+  <RouterView></RouterView>
+  <!-- <master></master> -->
   <!-- <section class="d-flex flex-column" id="app-wrapper">
     <div class="d-flex justify-content-center">
       <header-component @handleSidebar="handleSidebar"></header-component>
@@ -26,12 +27,12 @@
 </template>
 
 <script lang="ts" setup>
-import master from './components/master/master-component.vue'
+import "driver.js/dist/driver.css";
+import master from "./components/master/master-component.vue";
 // import { onMounted, watch, ref, computed } from "vue";
 // import HeaderComponent from "./components/layout/header-component.vue";
 // import MainContainer from "./components/main-page/main-container.vue";
 // import router from "./router";
-// import "driver.js/dist/driver.css";
 // import SidebarComponent from "./components/layout/sidebar-component.vue";
 // import { useStore } from "vuex";
 // import { usePersonalDetailsFormTour } from "./hooks/driver";
@@ -96,8 +97,11 @@ import master from './components/master/master-component.vue'
 // });
 
 // // ConfigurationService.getConfig();
-// </script>
+//
+</script>
 
-// <style lang="scss">
+//
+<style lang="scss">
 // // App
-// </style>
+//
+</style>

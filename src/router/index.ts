@@ -1,20 +1,31 @@
+import mainContainerVue from '@/components/main-page/main-container.vue'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: () => import('./../App.vue')
+    component: () => import('./../components/master/master-component.vue'),
+    children: [
+      {
+        path: '/',
+        component: () => import('./../components/main-page/main-container.vue')
+      },
+      {
+        path: '/hero',
+        component: () => import('./../components/main-page/main-container.vue')
+      },
+      {
+        path: '/tours',
+        component: () => import('./../components/main-page/main-container.vue')
+      },
+      {
+        path: '/contact',
+        component: () => import('./../components/main-page/main-container.vue')
+      },
+    ]
   },
   {
-    path: '/hero',
-    component: () => import('./../App.vue')
-  },
-  {
-    path: '/tours',
-    component: () => import('./../App.vue')
-  },
-  {
-    path: '/contact',
-    component: () => import('./../App.vue')
+    path: '/todo',
+    component: () => import('./../components/todo/todo-component.vue')
   }
 
 ]

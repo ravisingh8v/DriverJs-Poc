@@ -1,5 +1,5 @@
 import store from "@/store";
-import { driver } from "driver.js";
+import { Driver, driver } from "driver.js";
 
 // initial config for the tour
 const configuration = {
@@ -73,7 +73,7 @@ export const useConfigurationTour = (status?: boolean, element?: string, title?:
     const configurationTour = driver()
     // setting config 
     configurationTour.setConfig({
-        ...configuration, stagePadding: 1
+        ...configuration, stagePadding: 1,
     })
     // helping function 
     function nextClicked(activeIndex: any) {
@@ -510,6 +510,92 @@ export const useQueryDetailsFormTour = () => {
         // }
     }
 }
+/**
+ * =================== This highlight tour to highlight the whole section of drag and drop =========================
+ */
+export const useDndTour = () => {
+
+    const isTourDone = localStorage.getItem("dndTour")
+    if (!isTourDone) {
+        driver().destroy()
+
+        const dndTour = driver();
+
+        // setting config
+        dndTour.setConfig({
+            ...configuration, disableActiveInteraction: true, stagePadding: 5, animate: false
+        })
+        dndTour.highlight({
+            element: '#dragItem',
+            popover: {
+                title: 'Drag and Drop',
+                description: 'You can drag your completed item from todo to done',
+                align: "center",
+                side: "top"
+            },
+            onHighlighted(e) {
+                // console.log(e)
+                e?.classList.add('dndTourActive')
+                // document.getElementById()
+            }
+        },
+        )
+
+        // dndTour.drive()
+        // }
+    }
+}
+
+// =====================this is to highlight particular element of drag and drop list===================
+// export const useDndTour = (destroy?: any) => {
+//     let dndTour: Driver;
+//     const isTourDone = localStorage.getItem("dndTour")
+//     driver().destroy()
+
+//     dndTour = driver();
+
+//     if (!isTourDone) {
+//         // setting config
+//         dndTour.setConfig({
+//             ...configuration, disableActiveInteraction: true, stagePadding: 5, animate: false, onDeselected() {
+//                 dndTour.destroy()
+//             }
+//         })
+//         // setTimeout(() => {
+
+//         // TO animate the highlight
+//         const interval = setInterval(() => {
+//             // dndTour.highlight({
+//             //     element: '#dragItem0',
+//             //     onHighlighted(e) {
+//             //         e?.classList.add('dndTourActive')
+//             //     }
+//             // },
+//             // )
+//             dndTour.highlight({
+//                 element: '#dragItem0',
+//                 popover: {
+//                     title: 'Drag and Drop',
+//                     description: 'You can drag your completed item from todo to done',
+//                     align: "center",
+//                     side: "top"
+//                 },
+//                 onHighlighted(e) {
+//                     e?.classList.add('dndTourActive')
+//                 }
+//             },
+//             )
+//         }, 0)
+
+//         const timeout = setTimeout(() => {
+//             clearInterval(interval)
+//         }, 2600)
+
+//         // }
+//     }
+//     return dndTour
+
+// }
 
 // /**
 //  * @param element

@@ -20,6 +20,9 @@
           <li class="px-3 link" id="nav-contact">
             <a href="#contact">Contact</a>
           </li>
+          <li class="px-3 link" id="nav-contact">
+            <RouterLink to="/todo">Todo</RouterLink>
+          </li>
         </ul>
       </nav>
     </div>
